@@ -6,10 +6,6 @@ class SpeechClass {
 
     appReference = null;
 
-    constructor(props) {
-
-    }
-
     onPlayingChanged = (isPlaying, newString) => {
         if (!isPlaying) {
             if (this.synth.paused && newString === this.currentUtterance.text) {

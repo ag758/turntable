@@ -4,7 +4,7 @@ import { useEffect, useCallback, useRef } from 'react';
 export const useFetch = (data, dispatch, topic) => {
   useEffect(() => {
 
-    /** 
+
     console.log(topic);
 
     const images = [
@@ -26,32 +26,29 @@ export const useFetch = (data, dispatch, topic) => {
     dispatch({ type: 'STACK_IMAGES', images: images })
     dispatch({ type: 'FETCHING_IMAGES', fetching: false })
 
-    */
+    //   dispatch({ type: 'FETCHING_IMAGES', fetching: true })
+    //   fetch(`https://newslit-news-search.p.rapidapi.com/news?q=${topic}&offset=${data.page * 100}&count=100`, {
+    //     "method": "GET",
+    //     "headers": {
+    //       "x-rapidapi-key": process.env.REACT_APP_NEWS_API_KEY,
+    //       "x-rapidapi-host": "newslit-news-search.p.rapidapi.com"
+    //     }
+    //   })
+    //     .then(data => data.json())
+    //     .then(images => {
+    //       console.log(images.results.stories)
+    //       dispatch({ type: 'STACK_IMAGES', images: images.results.stories })
+    //       dispatch({ type: 'FETCHING_IMAGES', fetching: false })
+    //     })
+    //     .catch(e => {
+    //       // handle error
+    //       console.log(e)
+    //       dispatch({ type: 'FETCHING_IMAGES', fetching: false })
+    //       return e;
+    //     })
+    // }, [dispatch, data.page])
 
-
-    dispatch({ type: 'FETCHING_IMAGES', fetching: true })
-    fetch(`https://newslit-news-search.p.rapidapi.com/news?q=${topic}&offset=${data.page * 100}&count=100`, {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-key": process.env.REACT_APP_NEWS_API_KEY,
-        "x-rapidapi-host": "newslit-news-search.p.rapidapi.com"
-      }
-    })
-      .then(data => data.json())
-      .then(images => {
-        console.log(images.results.stories)
-        dispatch({ type: 'STACK_IMAGES', images: images.results.stories })
-        dispatch({ type: 'FETCHING_IMAGES', fetching: false })
-      })
-      .catch(e => {
-        // handle error
-        console.log(e)
-        dispatch({ type: 'FETCHING_IMAGES', fetching: false })
-        return e;
-      })
   }, [dispatch, data.page])
-
-  // }, [dispatch, data.page])
 
 }
 

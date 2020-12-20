@@ -24,7 +24,7 @@ class Article extends Component {
                 </div>
               </div>
               <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <a className="btn btn-primary nav-link" href={this.props.url} target="_blank" role="button">Full Article</a>
+                <a className="btn btn-primary nav-link" href={this.props.url} target="_blank" rel="noopener noreferrer" role="button">Full Article</a>
               </div>
             </div>
             <div className="row">

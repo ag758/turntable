@@ -1,6 +1,6 @@
-import React, { useReducer, useRef, useState, useLayoutEffect } from 'react';
+import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useFetch, scrollPage, useLazyLoading, clearImages } from './customHooks';
+import { useFetch, scrollPage, useLazyLoading } from './customHooks';
 import './index.css';
 import './App.css';
 import Carousel from '@brainhubeu/react-carousel';
@@ -75,7 +75,7 @@ function App(props) {
 
       <div className="box header">
         <nav className="navbar navbar-light bg-light vertical-center">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img src={Icon} width="180px" height="53px" alt="" />
           </a>
 
