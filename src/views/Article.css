@@ -1,0 +1,41 @@
+.card {
+  padding: 5px;
+  background-color: #eeeeee;
+  max-height: 90%;
+  overflow: auto;
+}
+
+.img-crop {
+  object-fit: cover;
+  width:100%;
+  max-height: 30vh;
+}
+
+.inline {
+  display:flex;
+}
+
+.inline > * {
+  margin-right: 10px;
+}
+
+.nav-link {
+  margin-top: 20px;
+}
+
+.bubble {
+  border: 1px solid black;
+  border-radius: 100px;
+  text-align: center;
+  padding: 3px 8px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}

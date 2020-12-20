@@ -1,0 +1,127 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.box .header {
+  flex: 0 1 100px;
+  height: 100%;
+  background-color: black
+}
+
+.navbar {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.navbar .navbar-light  {
+  margin-top: 24px;
+  margin-bottom: 0px;
+}
+
+.box .content {
+  flex: 1 1 auto;
+  position: relative;
+  background-color:grey;
+}
+
+.box .footer {
+  flex: 0 1 60px;
+  background-color: black
+}
+
+.box .footer > .mediabar{
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:5px
+}
+
+.box .footer > .mediabar > button {
+  background-color: #008B8B;
+  border-width: 0px;
+  outline-width: 100px;
+  outline: none;
+}
+
+.box .footer > .mediabar > button:hover {
+  background-color: #00c2cb
+}
+
+.fill {
+  position: absolute;
+  height:100%;
+  width:100%;
+}
+
+.fill > div {
+  height:100%;
+}
+
+.fill > div > ul{
+  height:100%;
+}
+
+.fill-width {
+  position:relative;
+  width:90%;
+}
+
+.icon {
+  height:80px;
+  width:80px;
+}
+
+.btn-xlarge {
+  padding: 13px 16px;
+  font-size: 22px;
+  line-height: normal;
+  -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+          border-radius: 100px;
+}
+
+button.BrainhubCarousel__arrows.BrainhubCarousel__arrowLeft:disabled {
+  background-color: grey
+}
+
+button.BrainhubCarousel__arrows.BrainhubCarousel__arrowRight:disabled {
+  background-color: grey
+}
+
+button.BrainhubCarousel__arrows.BrainhubCarousel__arrowLeft:enabled {
+  background-color: #008B8B
+}
+
+button.BrainhubCarousel__arrows.BrainhubCarousel__arrowRight:enabled {
+  background-color: #008B8B
+}
+
+button.BrainhubCarousel__arrows.BrainhubCarousel__arrowLeft:hover {
+  background-color: #00c2cb
+}
+
+button.BrainhubCarousel__arrows.BrainhubCarousel__arrowRight:hover {
+  background-color: #00c2cb
+}
+
+button.btn {
+  background-color: black;
+  color: white !important;
+}
+
+button.btn:hover {
+  background-color: #008B8B;
+}
+
+button.btn:focus {
+  outline: none !important;
+}
