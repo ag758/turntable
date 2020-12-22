@@ -7,12 +7,23 @@ import {
   Redirect
 } from "react-router-dom";
 import Topics from './constants/Topics.js';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+const trackingId = process.env.REACT_APP_GA_KEY;
+ReactGA.initialize(trackingId);
+
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 
 class RouterLayer extends React.Component {
 
   render() {
-    return (<Router>
+    return (<Router history={history}>
       <div>
         <Switch>
           <Route exact path="/" key={-1}>
