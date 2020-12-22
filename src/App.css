@@ -118,6 +118,10 @@ button.btn {
   color: white !important;
 }
 
+.btn {
+  background-color: #008B8B
+}
+
 button.btn:hover {
   background-color: #008B8B;
 }

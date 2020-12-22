@@ -20,11 +20,11 @@ function App(props) {
     history.push(`/${topic}`);
   }
 
-  const imgReducer = (state, action) => {
+  const articleReducer = (state, action) => {
     switch (action.type) {
-      case 'STACK_IMAGES':
-        return { ...state, images: state.images.concat(action.images) }
-      case 'FETCHING_IMAGES':
+      case 'STACK_ARTICLES':
+        return { ...state, articles: state.articles.concat(action.articles) }
+      case 'FETCHING_ARTICLES':
         return { ...state, fetching: action.fetching }
       default:
         return state;
@@ -41,29 +41,29 @@ function App(props) {
   }
 
   const [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 })
-  const [imgData, imgDispatch] = useReducer(imgReducer, { images: [], fetching: true, })
+  const [articleData, articleDispatch] = useReducer(articleReducer, { articles: [], fetching: true, })
 
-  useFetch(pager, imgDispatch, props.topic);
-  useLazyLoading('.card-img-top', imgData.images)
+  useFetch(pager, articleDispatch, props.topic);
+  useLazyLoading('.card-img-top', articleData.articles)
 
   const setPlaying = (boolean) => {
     setAudioPlaying(boolean);
-    Speech.getInstance(this).onPlayingChanged(isAudioPlaying, deriveText(imgData.images[newsIdx]));
+    Speech.getInstance(this).onPlayingChanged(isAudioPlaying, deriveText(articleData.articles[newsIdx]));
   }
 
   const onChange = e => {
-    if (e === imgData.images.length - 1) {
+    if (e === articleData.articles.length - 1) {
       scrollPage(pagerDispatch);
     }
     setNewsIdx(e);
-    Speech.getInstance(this).onSwitchNews(isAudioPlaying, deriveText(imgData.images[e]));
+    Speech.getInstance(this).onSwitchNews(isAudioPlaying, deriveText(articleData.articles[e]));
   }
 
-  const deriveText = image => {
-    if (!image) {
+  const deriveText = article => {
+    if (!article) {
       return "";
     }
-    return image.excerpt;
+    return article.excerpt;
   }
 
   const prettierDate = dateString => {
@@ -74,20 +74,19 @@ function App(props) {
     <div className="box">
 
       <div className="box header">
-        <nav className="navbar navbar-light bg-light vertical-center">
+        <nav className="navbar navbar-light bg-light vertical-center inline">
           <a className="navbar-brand" href="/">
             <img src={Icon} width="180px" height="53px" alt="" />
           </a>
 
-          <nav className="navbar navbar-light bg-light">
-            <form className="form-inline">
-              {Topics.map((topicx, idx) => {
-                return (<button className="btn" type="button" key={idx}
-                  onClick={() => pushTopic(topicx)}
-                >{topicx}</button>)
-              })}
-            </form>
-          </nav>
+
+          <form className="form-inline" style={{ marginTop: '25px', maxHeight: '50px', overflow: 'scroll' }}>
+            {Topics.map((topicx, idx) => {
+              return (<button className="btn" type="button" key={idx}
+                onClick={() => { pushTopic(topicx) }}
+              >{topicx}</button>)
+            })}
+          </form>
 
 
         </nav>
@@ -100,18 +99,18 @@ function App(props) {
           className="fill"
           value={newsIdx}
           onChange={onChange}>
-          {imgData.images.map((image, index) => {
+          {articleData.articles.map((article, index) => {
             return (
               <Article
                 key={index}
                 index={index}
-                url={image.url}
-                source={image.source}
-                author={image.author}
-                imageURL={image.image_url}
-                title={image.title}
-                publication_date={prettierDate(image.publication_date)}
-                excerpt={image.excerpt}>
+                url={article.url}
+                source={article.source}
+                author={article.author}
+                imageURL={article.image_url}
+                title={article.title}
+                publication_date={prettierDate(article.publication_date)}
+                excerpt={article.excerpt}>
               </Article>
             )
           })}

@@ -15,10 +15,6 @@
   display:flex;
 }
 
-.inline > * {
-  margin-right: 10px;
-}
-
 .nav-link {
   margin-top: 20px;
 }
@@ -26,8 +22,10 @@
 .bubble {
   border: 1px solid black;
   border-radius: 100px;
-  text-align: center;
   padding: 3px 8px;
+  margin-right: 10px;
+  display: inline-block;
+  width: auto;
 }
 
 .noselect {
