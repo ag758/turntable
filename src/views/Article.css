@@ -28,6 +28,10 @@
   width: auto;
 }
 
+btn.btn-primary .nav-link {
+  margin-right: 10px;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

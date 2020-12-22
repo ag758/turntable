@@ -4,6 +4,7 @@ import { useFetch, scrollPage, useLazyLoading } from './customHooks';
 import './index.css';
 import './App.css';
 import Carousel from '@brainhubeu/react-carousel';
+import Modal from 'react-modal';
 import '@brainhubeu/react-carousel/lib/style.css';
 import Speech from './Speech';
 import Article from './views/Article';
@@ -14,6 +15,8 @@ function App(props) {
 
   let [newsIdx, setNewsIdx] = useState(0);
   let [isAudioPlaying, setAudioPlaying] = useState(false);
+  let [isModalShowing, setModalShowing] = useState(props.isModalShowing == null ? false : this.props.isModalShowing);
+  let [modalURL, setModalURL] = useState(props.modalURL == null ? "" : this.props.modalURL);
 
   const history = useHistory();
   const pushTopic = (topic) => {
@@ -49,6 +52,16 @@ function App(props) {
   const setPlaying = (boolean) => {
     setAudioPlaying(boolean);
     Speech.getInstance(this).onPlayingChanged(isAudioPlaying, deriveText(articleData.articles[newsIdx]));
+  }
+
+  const openModal = (modalURL) => {
+    console.log(modalURL);
+    setModalURL(modalURL);
+    setModalShowing(true);
+  }
+
+  const closeModal = () => {
+    setModalShowing(false);
   }
 
   const onChange = e => {
@@ -93,6 +106,15 @@ function App(props) {
       </div>
 
       <div className="box content">
+
+        <Modal
+          isOpen={isModalShowing}
+          onRequestClose={closeModal}
+          contentLabel="Example Modal"
+          ariaHideApp={false}>
+          <iframe title={modalURL} src={modalURL} width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+        </Modal>
+
         <Carousel
           style={{ height: '100%' }}
           arrows
@@ -110,7 +132,8 @@ function App(props) {
                 imageURL={article.image_url}
                 title={article.title}
                 publication_date={prettierDate(article.publication_date)}
-                excerpt={article.excerpt}>
+                excerpt={article.excerpt}
+                onFullArticleClick={() => openModal(article.url)}>
               </Article>
             )
           })}
