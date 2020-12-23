@@ -7,7 +7,7 @@ class Article extends Component {
   render() {
     return (
       <div className="card fill-width" key={this.props.index}>
-        <img className="card-img-top img-crop noselect" data-src={this.props.imageURL} alt="" />
+        <img className="card-img-top img-crop noselect" data-src={this.props.imageURL ? this.props.imageURL : "https://source.unsplash.com/daily"} alt="" />
 
         <div className="card-body">
 

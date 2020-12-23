@@ -18,11 +18,6 @@ function App(props) {
   let [isModalShowing, setModalShowing] = useState(props.isModalShowing == null ? false : this.props.isModalShowing);
   let [modalURL, setModalURL] = useState(props.modalURL == null ? "" : this.props.modalURL);
 
-  const history = useHistory();
-  const pushTopic = (topic) => {
-    history.push(`/${topic}`);
-  }
-
   const articleReducer = (state, action) => {
     switch (action.type) {
       case 'STACK_ARTICLES':
@@ -51,7 +46,7 @@ function App(props) {
 
   const setPlaying = (boolean) => {
     setAudioPlaying(boolean);
-    Speech.getInstance(this).onPlayingChanged(isAudioPlaying, deriveText(articleData.articles[newsIdx]));
+    Speech.getInstance(this).onPlayingChanged(!boolean, deriveText(articleData.articles[newsIdx]));
   }
 
   const openModal = (modalURL) => {
@@ -81,6 +76,12 @@ function App(props) {
 
   const prettierDate = dateString => {
     return new Date(dateString).toLocaleString();
+  }
+
+  const history = useHistory();
+  const pushTopic = (topic) => {
+    setPlaying(false);
+    history.push(`/${topic}`);
   }
 
   return (

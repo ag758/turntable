@@ -29,7 +29,8 @@ body {
 .box .content {
   flex: 1 1 auto;
   position: relative;
-  background-color:grey;
+  background-size: cover;
+  background-image:url(https://source.unsplash.com/weekly?city,mountains);
 }
 
 .box .footer {
