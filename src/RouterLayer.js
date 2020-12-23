@@ -1,7 +1,7 @@
 import React from 'react';
 import App from './App.js';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Redirect
