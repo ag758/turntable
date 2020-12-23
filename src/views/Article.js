@@ -25,7 +25,7 @@ class Article extends Component {
                 <p className="noselect card-text">{this.props.excerpt}</p>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <a className="btn btn-primary nav-link" href={this.props.url} style={{ marginRight: '10px' }} onClick={this.props.onFullArticleClick} role="button">View in App</a>
+                <a className="btn btn-primary nav-link" style={{ marginRight: '10px' }} onClick={this.props.onFullArticleClick} role="button">View in App</a>
                 <a className="btn btn-primary nav-link" href={this.props.url} target="_blank" rel="noopener noreferrer" role="button">Full Article</a>
               </div>
             </div>
