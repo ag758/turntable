@@ -94,7 +94,7 @@ function App(props) {
           </a>
 
 
-          <form className="form-inline" style={{ marginTop: '25px', maxHeight: '50px', overflow: 'scroll' }}>
+          <form className="form-inline" style={{ marginTop: '25px', maxHeight: '50px', overflow: 'auto' }}>
             {Topics.map((topicx, idx) => {
               return (<button className="btn" type="button" key={idx}
                 onClick={() => { pushTopic(topicx) }}
