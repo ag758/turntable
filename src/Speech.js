@@ -9,10 +9,7 @@ class SpeechClass {
     //when user presses 'play', resume same article
 
     onPlayingChanged = (isPlaying, newString) => {
-        if (isPlaying && newString === this.lastSpokenUtteranceText) {
-            this.synth.resume();
-        }
-        else if (isPlaying) {
+        if (isPlaying) {
             this.synth.cancel();
             this.setUtterance(newString);
             this.lastSpokenUtteranceText = newString;
