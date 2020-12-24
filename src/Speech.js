@@ -4,11 +4,9 @@ class SpeechClass {
     synth = window.speechSynthesis;
     currentUtterance = null;
 
-    appReference = null;
-
     onPlayingChanged = (isPlaying, newString) => {
         if (!isPlaying) {
-            if (this.synth.paused && newString === this.currentUtterance.text) {
+            if (this.currentUtterance && newString === this.currentUtterance.text) {
                 this.synth.resume();
             } else {
                 this.setUtterance(newString);
