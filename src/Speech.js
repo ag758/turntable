@@ -28,7 +28,7 @@ class SpeechClass {
             this.setUtterance(newString);
             this.speak();
         } else {
-
+            this.synth.cancel();
         }
     }
 

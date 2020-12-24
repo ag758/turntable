@@ -50,7 +50,6 @@ function App(props) {
   }
 
   const openModal = (modalURL) => {
-    console.log(modalURL);
     setModalURL(modalURL);
     setModalShowing(true);
   }
@@ -64,7 +63,8 @@ function App(props) {
       scrollPage(pagerDispatch);
     }
     setNewsIdx(e);
-    Speech.getInstance(this).onSwitchNews(isAudioPlaying, deriveText(articleData.articles[e]));
+    setAudioPlaying(false);
+    Speech.getInstance(this).onSwitchNews(false, deriveText(articleData.articles[e]));
   }
 
   const deriveText = article => {
