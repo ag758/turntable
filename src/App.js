@@ -46,7 +46,7 @@ function App(props) {
 
   const setPlaying = (boolean) => {
     setAudioPlaying(boolean);
-    Speech.getInstance(this).onPlayingChanged(!boolean, deriveText(articleData.articles[newsIdx]));
+    Speech.getInstance(this).onPlayingChanged(boolean, deriveText(articleData.articles[newsIdx]));
   }
 
   const openModal = (modalURL) => {

@@ -4,35 +4,44 @@ class SpeechClass {
     synth = window.speechSynthesis;
     currentUtterance = null;
 
+    //boolean to indicate user paused and is on the same article, so
+    //when user presses 'play', resume same article
+
+    isPausedAndValid = false;
+
     onPlayingChanged = (isPlaying, newString) => {
-        if (!isPlaying) {
-            if (this.currentUtterance && newString === this.currentUtterance.text) {
-                this.synth.resume();
-            } else {
-                this.setUtterance(newString);
-            }
+        if (isPlaying && this.isPausedAndValid) {
+            this.synth.resume();
+        } else if (isPlaying) {
+            this.synth.cancel();
+            this.setUtterance(newString);
+            this.speak();
         } else {
             this.synth.pause();
+            this.isPausedAndValid = true;
         }
     }
 
     onSwitchNews = (isPlaying, newString) => {
+        if (this.currentUtterance && this.currentUtterance.text === newString) {
+            this.isPausedAndValid = true;
+        } else {
+            this.isPauseAndValid = false;
+        }
+
         if (isPlaying) {
+            this.synth.cancel();
             this.setUtterance(newString);
+            this.speak();
         }
     }
 
     setUtterance = (newString) => {
-        if (this.currentUtterance) {
-            this.currentUtterance.onend = null;
-        }
+        this.currentUtterance = new SpeechSynthesisUtterance(newString);
+    }
 
-        this.synth.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(newString);
-        this.currentUtterance = utterance;
-
-        this.synth.speak(utterance);
+    speak = () => {
+        this.synth.speak(this.currentUtterance);
     }
 }
 
