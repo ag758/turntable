@@ -1,6 +1,8 @@
+import SpeechTTS from 'speak-tts'; // es6
 
 class SpeechClass {
 
+    speechTTS = new SpeechTTS()
     synth = window.speechSynthesis;
     currentUtterance = null;
     lastSpokenUtteranceText = "";
@@ -10,31 +12,25 @@ class SpeechClass {
 
     onPlayingChanged = (isPlaying, newString) => {
         if (isPlaying) {
-            this.synth.cancel();
-            this.setUtterance(newString);
+            this.speechTTS.cancel();
             this.lastSpokenUtteranceText = newString;
-            this.speak();
+            this.speak(newString);
         } else {
-            this.synth.pause();
+            this.speechTTS.cancel();
         }
     }
 
     onSwitchNews = (isPlaying, newString) => {
         if (isPlaying) {
-            this.synth.cancel();
-            this.setUtterance(newString);
+            this.speechTTS.cancel();
             this.speak();
         } else {
-            this.synth.cancel();
+            this.speechTTS.cancel();
         }
     }
 
-    setUtterance = (newString) => {
-        this.currentUtterance = new SpeechSynthesisUtterance(newString);
-    }
-
-    speak = () => {
-        this.synth.speak(this.currentUtterance);
+    speak = (newString) => {
+        this.speechTTS.speak({ text: newString, queue: false });
     }
 }
 
