@@ -10,10 +10,11 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0",
-    "react-router-dom": "^5.2.0",
     "react-ga": "^3.3.0",
-    "react-modal": "^3.12.1"
+    "react-modal": "^3.12.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.0",
+    "speak-tts": "^2.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
