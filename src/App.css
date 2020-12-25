@@ -34,7 +34,7 @@ body {
 }
 
 .box .footer {
-  flex: 0 1 60px;
+  flex: 0 1 80px;
   background-color: black
 }
 
@@ -43,7 +43,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding:5px
+  padding:10px;
 }
 
 .box .footer > .mediabar > button {
