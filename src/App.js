@@ -84,6 +84,20 @@ function App(props) {
     history.push(`/${topic}`);
   }
 
+  const shareClicked = (articleProps) => {
+    if (navigator.share) {
+      navigator.share({
+        title: articleProps.title,
+        url: articleProps.source
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+        .catch(console.error);
+    } else {
+      //shareDialog.classList.add('is-open');
+    }
+  }
+
   return (
     <div className="box">
 
@@ -113,7 +127,7 @@ function App(props) {
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}>
-          <iframe title={modalURL} src={modalURL} width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+          <iframe id="iframe" title={modalURL} src={modalURL} width="100%" height="100%" frameBorder="0" marginWidth="0" marginHeight="0"></iframe>
         </Modal>
 
         <Carousel
@@ -134,7 +148,8 @@ function App(props) {
                 title={article.title}
                 publication_date={prettierDate(article.publication_date)}
                 excerpt={article.excerpt}
-                onFullArticleClick={() => openModal(article.url)}>
+                onFullArticleClick={() => openModal(article.url)}
+                onShareClick={(articleProps) => shareClicked(articleProps)}>
               </Article>
             )
           })}

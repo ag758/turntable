@@ -1,25 +1,33 @@
 import { useEffect, useCallback, useRef } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 // make API calls and pass the returned data via dispatch
+
+var config = {
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  databaseURL: process.env.REACT_APP_databaseURL,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket
+};
+firebase.initializeApp(config);
+
+// Get a reference to the database service
+var reference = firebase.database().ref();
+
 export const useFetch = (data, dispatch, topic) => {
   useEffect(() => {
 
     dispatch({ type: 'FETCHING_ARTICLES', fetching: true })
-    fetch(`https://newslit-news-search.p.rapidapi.com/news?q=${topic}&offset=${data.page * 20}&count=20`, {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-key": process.env.REACT_APP_NEWS_API_KEY,
-        "x-rapidapi-host": "newslit-news-search.p.rapidapi.com"
-      }
-    })
-      .then(data => data.json())
+
+    reference.child(`${topic}`).child(data.page).once('value')
+      .then((snapshot) => snapshot.val())
       .then(value => {
-        dispatch({ type: 'STACK_ARTICLES', articles: value.results.stories })
+        dispatch({ type: 'STACK_ARTICLES', articles: value })
         dispatch({ type: 'FETCHING_ARTICLES', fetching: false })
       })
       .catch(e => {
-        // handle error
-        console.log(e)
         dispatch({ type: 'FETCHING_ARTICLES', fetching: false })
         return e;
       })
