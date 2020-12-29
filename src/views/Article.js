@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Article.css';
+import Slide from 'react-reveal/Slide';
 
 import {
   EmailShareButton,
@@ -7,8 +8,6 @@ import {
   FacebookMessengerShareButton,
   LineShareButton,
   LinkedinShareButton,
-  PinterestShareButton,
-  PocketShareButton,
   RedditShareButton,
   TelegramShareButton,
   TwitterShareButton,
@@ -20,8 +19,6 @@ import {
   FacebookMessengerIcon,
   LineIcon,
   LinkedinIcon,
-  PinterestIcon,
-  PocketIcon,
   RedditIcon,
   TelegramIcon,
   TwitterIcon,
@@ -30,6 +27,31 @@ import {
 
 
 class Article extends Component {
+
+  state = { showShare: false }
+
+  showShareOption = () => {
+    return this.state.showShare ?
+      <Slide duration={400} delay={0} left>
+        <div style={{ marginBottom: '0px', marginTop: '2px' }}>
+          <FacebookShareButton url={this.props.url} quote={this.props.excerpt}><FacebookIcon size={32} round={true}></FacebookIcon></FacebookShareButton>
+          <FacebookMessengerShareButton appId={process.env.REACT_APP_facebookAppId} url={this.props.url}><FacebookMessengerIcon size={32} round={true}></FacebookMessengerIcon></FacebookMessengerShareButton>
+          <LinkedinShareButton title={this.props.title} summary={this.props.excerpt} source={"Turntable News"} url={this.props.url}><LinkedinIcon size={32} round={true}></LinkedinIcon></LinkedinShareButton>
+          <RedditShareButton title={this.props.title} url={this.props.url}><RedditIcon size={32} round={true}></RedditIcon></RedditShareButton>
+          <TelegramShareButton title={this.props.title} url={this.props.url}><TelegramIcon size={32} round={true}></TelegramIcon></TelegramShareButton>
+          <TwitterShareButton title={this.props.title} url={this.props.url}><TwitterIcon size={32} round={true}></TwitterIcon></TwitterShareButton>
+          <WhatsappShareButton title={this.props.title} url={this.props.url}><WhatsappIcon size={32} round={true}></WhatsappIcon></WhatsappShareButton>
+          <LineShareButton title={this.props.title} url={this.props.url}><LineIcon size={32} round={true}></LineIcon></LineShareButton>
+          <EmailShareButton subject={this.props.title} body={this.props.excerpt} url={this.props.url}><EmailIcon size={32} round={true}></EmailIcon></EmailShareButton>
+        </div>
+      </Slide>
+      :
+      <div className="btn btn-primary nav-link"
+        style={{ marginTop: '0px', marginBottom: '5px' }}
+        onClick={() => this.setState({ showShare: true })}>
+        Share
+      </div>
+  }
 
   render() {
     return (
@@ -52,7 +74,7 @@ class Article extends Component {
                 <p className="noselect card-text">{this.props.excerpt}</p>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <FacebookShareButton url={this.props.source}><FacebookIcon size={32} round={true}></FacebookIcon></FacebookShareButton>
+                {this.showShareOption()}
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <a className="btn btn-primary nav-link" style={{ marginTop: '0px' }} href={this.props.url} target="_blank" rel="noopener noreferrer" role="button">Full Article</a>
