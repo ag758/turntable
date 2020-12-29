@@ -30,7 +30,7 @@ body {
   flex: 1 1 auto;
   position: relative;
   background-size: cover;
-  background-image:url(https://source.unsplash.com/weekly?mountains,water,forest,volcano);
+  background-image:url(https://source.unsplash.com/user/asoggetti/daily?nature);
 }
 
 .box .footer {
