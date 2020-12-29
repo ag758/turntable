@@ -50,8 +50,8 @@ function App(props) {
   }
 
   const openModal = (modalURL) => {
-    setModalURL(modalURL);
-    setModalShowing(true);
+    // setModalURL(modalURL);
+    // setModalShowing(true);
   }
 
   const closeModal = () => {
@@ -82,20 +82,6 @@ function App(props) {
   const pushTopic = (topic) => {
     setPlaying(false);
     history.push(`/${topic}`);
-  }
-
-  const shareClicked = (articleProps) => {
-    if (navigator.share) {
-      navigator.share({
-        title: articleProps.title,
-        url: articleProps.source
-      }).then(() => {
-        console.log('Thanks for sharing!');
-      })
-        .catch(console.error);
-    } else {
-      //shareDialog.classList.add('is-open');
-    }
   }
 
   return (
@@ -148,8 +134,7 @@ function App(props) {
                 title={article.title}
                 publication_date={prettierDate(article.publication_date)}
                 excerpt={article.excerpt}
-                onFullArticleClick={() => openModal(article.url)}
-                onShareClick={(articleProps) => shareClicked(articleProps)}>
+                onFullArticleClick={() => openModal(article.url)}>
               </Article>
             )
           })}

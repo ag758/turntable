@@ -24,11 +24,15 @@ export const useFetch = (data, dispatch, topic) => {
     reference.child(`${topic}`).child(data.page).once('value')
       .then((snapshot) => snapshot.val())
       .then(value => {
-        dispatch({ type: 'STACK_ARTICLES', articles: value })
-        dispatch({ type: 'FETCHING_ARTICLES', fetching: false })
+        if (value) {
+          dispatch({ type: 'STACK_ARTICLES', articles: value })
+          dispatch({ type: 'FETCHING_ARTICLES', fetching: false })
+        } else {
+          dispatch({ type: 'FETCHING_ARTICLES', fetching: false })
+        }
       })
       .catch(e => {
-        dispatch({ type: 'FETCHING_ARTICLES', fetching: false })
+
         return e;
       })
   }, [dispatch, data.page, topic])

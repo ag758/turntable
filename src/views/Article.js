@@ -1,6 +1,33 @@
 import React, { Component } from 'react';
 import './Article.css';
 
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  FacebookMessengerShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton
+} from "react-share";
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  LineIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TwitterIcon,
+  WhatsappIcon
+} from "react-share";
+
 
 class Article extends Component {
 
@@ -25,9 +52,10 @@ class Article extends Component {
                 <p className="noselect card-text">{this.props.excerpt}</p>
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div className="btn btn-primary nav-link" style={{ marginRight: '10px' }} onClick={() => this.props.onShareClick(this.props)} role="button">Share</div>
-                <div className="btn btn-primary nav-link" style={{ marginRight: '10px' }} onClick={this.props.onFullArticleClick} role="button">View in App</div>
-                <a className="btn btn-primary nav-link" href={this.props.url} target="_blank" rel="noopener noreferrer" role="button">Full Article</a>
+                <FacebookShareButton url={this.props.source}><FacebookIcon size={32} round={true}></FacebookIcon></FacebookShareButton>
+              </div>
+              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a className="btn btn-primary nav-link" style={{ marginTop: '0px' }} href={this.props.url} target="_blank" rel="noopener noreferrer" role="button">Full Article</a>
               </div>
             </div>
           </div>
