@@ -30,6 +30,18 @@ class Article extends Component {
 
   state = { showShare: false }
 
+  clickedShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: this.props.title,
+        text: this.props.text,
+        url: this.props.url,
+      }).catch((error) => console.log(error));
+    } else {
+      this.setState({ showShare: true })
+    }
+  }
+
   showShareOption = () => {
     return this.state.showShare ?
       <Slide duration={400} delay={0} left>
@@ -48,7 +60,7 @@ class Article extends Component {
       :
       <div className="btn btn-primary nav-link"
         style={{ marginTop: '0px', marginBottom: '5px' }}
-        onClick={() => this.setState({ showShare: true })}>
+        onClick={() => this.clickedShare()}>
         Share
       </div>
   }
