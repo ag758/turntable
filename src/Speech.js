@@ -1,36 +1,37 @@
-import SpeechTTS from 'speak-tts'; // es6
-
 class SpeechClass {
 
-    speechTTS = new SpeechTTS()
-    synth = window.speechSynthesis;
-    currentUtterance = null;
-    lastSpokenUtteranceText = "";
+    speechTTS = window.speechSynthesis;
+    lastUtterance = new SpeechSynthesisUtterance("");
 
-    //boolean to indicate user paused and is on the same article, so
-    //when user presses 'play', resume same article
-
-    onPlayingChanged = (isPlaying, newString) => {
+    onPlayingChanged = (isPlaying, utterance) => {
         if (isPlaying) {
+            this.lastUtterance.onend = null
             this.speechTTS.cancel();
-            this.lastSpokenUtteranceText = newString;
-            this.speak(newString);
+            this.speak(utterance);
         } else {
+            this.lastUtterance.onend = null
             this.speechTTS.cancel();
         }
     }
 
-    onSwitchNews = (isPlaying, newString) => {
-        if (isPlaying) {
+    onSwitchNews = (continueOverride, utterance) => {
+        if (continueOverride) {
+            this.lastUtterance.onend = null
             this.speechTTS.cancel();
-            this.speak();
+            this.speak(utterance);
         } else {
+            this.lastUtterance.onend = null
             this.speechTTS.cancel();
         }
     }
 
-    speak = (newString) => {
-        this.speechTTS.speak({ text: newString, queue: false });
+    speak = (utterance) => {
+        try {
+            this.lastUtterance = utterance;
+            this.speechTTS.speak(utterance);
+        } catch (e) {
+            alert('There was an error playing your article. Please try Turntable News in a different browser.');
+        }
     }
 }
 

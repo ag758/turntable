@@ -39,20 +39,32 @@ function App(props) {
   const [articleData, articleDispatch] = useReducer(articleReducer, { articles: [], fetching: true, })
 
   useFetch(pager, articleDispatch, props.topic);
-  useLazyLoading('.card-img-top', articleData.articles)
+  useLazyLoading('.card-img-top', articleData.articles);
 
-  const setPlaying = (boolean) => {
-    setAudioPlaying(boolean);
-    Speech.getInstance(this).onPlayingChanged(boolean, deriveText(articleData.articles[newsIdx]));
-  }
-
-  const onChange = e => {
+  const onChange = (e, continueOverride = false) => {
+    if (!continueOverride) {
+      setAudioPlaying(false);
+    }
     if (e === articleData.articles.length - 1) {
       scrollPage(pagerDispatch);
     }
     setNewsIdx(e);
-    setAudioPlaying(false);
-    Speech.getInstance(this).onSwitchNews(false, deriveText(articleData.articles[e]));
+    let utterance = new SpeechSynthesisUtterance(deriveText(articleData.articles[e]));
+    if (continueOverride) {
+      utterance.onend = function () {
+        onChange(e + 1, continueOverride);
+      }
+    }
+    Speech.getInstance(this).onSwitchNews(continueOverride, utterance);
+  }
+
+  const setPlaying = (boolean) => {
+    setAudioPlaying(boolean);
+    let utterance = new SpeechSynthesisUtterance(deriveText(articleData.articles[newsIdx]));
+    utterance.onend = function () {
+      onChange(newsIdx + 1, boolean);
+    }
+    Speech.getInstance(this).onPlayingChanged(boolean, utterance);
   }
 
   const deriveText = article => {
