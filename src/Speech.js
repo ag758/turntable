@@ -3,7 +3,7 @@ class SpeechClass {
     speechTTS = window.speechSynthesis;
     lastUtterance = new SpeechSynthesisUtterance("");
 
-    onPlayingChanged = (isPlaying, utterance) => {
+    onPlayingChanged = (continueOverride, isPlaying, utterance) => {
         if (isPlaying) {
             this.lastUtterance.onend = null
             this.speechTTS.cancel();

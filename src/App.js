@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFetch, scrollPage, useLazyLoading } from './customHooks';
 import './index.css';
@@ -35,23 +35,31 @@ function App(props) {
     }
   }
 
-  const [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 })
-  const [articleData, articleDispatch] = useReducer(articleReducer, { articles: [], fetching: true, })
+  let [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 })
+  let [articleDatax, articleDispatch] = useReducer(articleReducer, { articles: [], fetching: true, })
+
+  let articleData = React.useRef([]);
+  useEffect(() => {
+    articleData.current = articleDatax;
+  }, [articleDatax]);
 
   useFetch(pager, articleDispatch, props.topic);
-  useLazyLoading('.card-img-top', articleData.articles);
+  useLazyLoading('.card-img-top', articleData.current.articles);
 
   const onChange = (e, continueOverride = false) => {
     if (!continueOverride) {
       setAudioPlaying(false);
     }
-    if (e === articleData.articles.length - 1) {
+    if (e === articleData.current.articles.length - 1) {
+      // Fetch new articles
       scrollPage(pagerDispatch);
     }
-    setNewsIdx(e);
-    let utterance = new SpeechSynthesisUtterance(deriveText(articleData.articles[e]));
+    if (e < articleData.current.articles.length && e > -1) {
+      setNewsIdx(e);
+    }
+    let utterance = new SpeechSynthesisUtterance(deriveText(articleData.current.articles[e]));
     if (continueOverride) {
-      utterance.onend = function () {
+      utterance.onend = () => {
         onChange(e + 1, continueOverride);
       }
     }
@@ -60,11 +68,11 @@ function App(props) {
 
   const setPlaying = (boolean) => {
     setAudioPlaying(boolean);
-    let utterance = new SpeechSynthesisUtterance(deriveText(articleData.articles[newsIdx]));
-    utterance.onend = function () {
+    let utterance = new SpeechSynthesisUtterance(deriveText(articleData.current.articles[newsIdx]));
+    utterance.onend = () => {
       onChange(newsIdx + 1, boolean);
     }
-    Speech.getInstance(this).onPlayingChanged(boolean, utterance);
+    Speech.getInstance(this).onPlayingChanged(true, boolean, utterance);
   }
 
   const deriveText = article => {
@@ -114,7 +122,7 @@ function App(props) {
           className="fill"
           value={newsIdx}
           onChange={onChange}>
-          {articleData.articles.map((article, index) => {
+          {articleData.current.articles && articleData.current.articles.map((article, index) => {
             return (
               <Article
                 key={index}
