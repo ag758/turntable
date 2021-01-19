@@ -30,7 +30,7 @@ body {
   flex: 1 1 auto;
   position: relative;
   background-size: cover;
-  background-image:url(https://source.unsplash.com/user/asoggetti/daily?nature);
+  background-image:url(https://source.unsplash.com/user/asoggetti/daily?nature/1700x1080);
 }
 
 .box .footer {
@@ -73,7 +73,7 @@ body {
 
 .fill-width {
   position:relative;
-  width:90%;
+  width:98%;
 }
 
 .icon {

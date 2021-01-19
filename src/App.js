@@ -41,6 +41,9 @@ function App(props) {
   let articleData = React.useRef([]);
   useEffect(() => {
     articleData.current = articleDatax;
+    return () => {
+      Speech.getInstance(this).cancelSpeechSynthesis();
+    }
   }, [articleDatax]);
 
   useFetch(pager, articleDispatch, props.topic);
@@ -79,7 +82,9 @@ function App(props) {
     if (!article) {
       return "";
     }
-    return article.excerpt;
+    return article.title + "!" +
+      (article.source ? " by " + article.source + " ! " : " ! ") +
+      (article.excerpt ? article.excerpt + " ! " : " ! ");
   }
 
   const prettierDate = dateString => {

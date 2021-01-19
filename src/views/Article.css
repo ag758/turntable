@@ -32,6 +32,12 @@ btn.btn-primary .nav-link {
   margin-right: 10px;
 }
 
+.spacer {
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-bottom: 6px;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

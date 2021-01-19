@@ -26,12 +26,21 @@ class SpeechClass {
     }
 
     speak = (utterance) => {
+        utterance.lang = this.getLang();
         try {
             this.lastUtterance = utterance;
             this.speechTTS.speak(utterance);
         } catch (e) {
             alert('There was an error playing your article. Please try Turntable News in a different browser.');
         }
+    }
+
+    cancelSpeechSynthesis = () => {
+        this.speechTTS.cancel();
+    }
+
+    getLang = () => {
+        return (navigator.language || navigator.userLanguage).replace('_', '-');
     }
 }
 

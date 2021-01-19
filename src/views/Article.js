@@ -30,13 +30,18 @@ class Article extends Component {
 
   state = { showShare: false }
 
-  clickedShare = () => {
+  clickedShare = async () => {
+    const shareData = {
+      title: this.props.title,
+      text: this.props.text,
+      url: this.props.url
+    }
+
     if (navigator.share) {
-      navigator.share({
-        title: this.props.title,
-        text: this.props.text,
-        url: this.props.url,
-      }).catch((error) => console.log(error));
+      navigator.share(
+        shareData
+      )
+        .catch((error) => console.log(error));
     } else {
       this.setState({ showShare: true })
     }
@@ -74,21 +79,21 @@ class Article extends Component {
 
           <div className="container-fluid">
             <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div className="spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2 className="noselect">{this.props.title}</h2>
               </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div className="spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 {this.props.source && <p className="noselect bubble">{this.props.source}</p>}
                 {this.props.author && <p className="noselect bubble">{this.props.author}</p>}
                 {this.props.publication_date && <p className="noselect bubble">{this.props.publication_date}</p>}
               </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div className="spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <p className="noselect card-text">{this.props.excerpt}</p>
               </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div className="spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 {this.showShareOption()}
               </div>
-              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div className="spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <a className="btn btn-primary nav-link" style={{ marginTop: '0px' }} href={this.props.url} target="_blank" rel="noopener noreferrer" role="button">Full Article</a>
               </div>
             </div>
