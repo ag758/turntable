@@ -35,7 +35,12 @@ class SpeechClass {
         }
     }
 
+    removeUtteranceListener = () => {
+        this.lastUtterance.onend = null;
+    }
+
     cancelSpeechSynthesis = () => {
+        this.removeUtteranceListener();
         this.speechTTS.cancel();
     }
 

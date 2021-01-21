@@ -39,10 +39,16 @@ function App(props) {
   let [articleDatax, articleDispatch] = useReducer(articleReducer, { articles: [], fetching: true, })
 
   let articleData = React.useRef([]);
+
+  const cancelSpeechSynthesis = () => {
+    Speech.getInstance(this).cancelSpeechSynthesis();
+  }
+
   useEffect(() => {
     articleData.current = articleDatax;
+    window.addEventListener('beforeunload', cancelSpeechSynthesis);
     return () => {
-      Speech.getInstance(this).cancelSpeechSynthesis();
+      window.removeEventListener('beforeunload', cancelSpeechSynthesis);
     }
   }, [articleDatax]);
 
