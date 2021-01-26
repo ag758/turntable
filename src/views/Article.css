@@ -1,7 +1,8 @@
 .card {
   background-color: #eeeeee;
   max-height: 90%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .img-crop {

@@ -82,9 +82,6 @@ class Article extends Component {
 
           <div className="container-fluid">
             <div className="row">
-              <div className="spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-              </div>
               <div className="center spacer col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 {this.props.source && <p className="noselect bubble emphasized">{this.props.source}</p>}
                 {this.props.author && <p className="noselect bubble deemphasized">{this.props.author}</p>}
